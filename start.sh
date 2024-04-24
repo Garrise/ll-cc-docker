@@ -1,9 +1,21 @@
 #!/bin/bash
 
 mkdir -p /opt/QQ/resources/app/LiteLoader/plugins/LLOneBot
+mkdir -p /opt/QQ/resources/app/LiteLoader/plugins/LLWebUiApi
 # 安装 LiteLoader
 if [ ! -f "/opt/QQ/resources/app/LiteLoader/package.json" ]; then
     unzip /tmp/LiteLoaderQQNT.zip -d /opt/QQ/resources/app/LiteLoader/
+fi
+
+# 安装 LLOneBot、LLWebUiApi
+if [ ! -f "/opt/QQ/resources/app/LiteLoader/plugins/LLOneBot/manifest.json" ]; then
+    unzip /tmp/LLOneBot.zip -d /opt/QQ/resources/app/LiteLoader/plugins/LLOneBot/
+    unzip /tmp/LLWebUiApi.zip -d /opt/QQ/resources/app/LiteLoader/plugins/LLWebUiApi/
+    # 设置启动模式
+    if [ "$BOOT_MODE" ]; then
+        mkdir -p /opt/QQ/resources/app/LiteLoader/data/LLWebUiApi
+        echo "{\"Server\":{\"Port\":6099},\"AutoLogin\":true,\"BootMode\":$BOOT_MODE,\"Debug\":false}" > /opt/QQ/resources/app/LiteLoader/data/LLWebUiApi/config.json
+    fi
 fi
 
 # 安装 chronocat-api

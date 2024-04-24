@@ -48,8 +48,12 @@ RUN version=$(curl -Ls "https://api.github.com/repos/LiteLoaderQQNT/LiteLoaderQQ
     mkdir -p /opt/QQ/resources/app/LiteLoader && \
         ##  ---调试开启  检测文件情况 ls /opt/QQ/resources/app/app_launcher/ && \
     # 修补QQ载入LiteLoader
-    sed -i "1i\require('/opt/QQ/resources/app/LiteLoader/');" /opt/QQ/resources/app/app_launcher/index.js
+    sed -i "1i\require('/opt/QQ/resources/app/LiteLoader/');" /opt/QQ/resources/app/app_launcher/index.js && \
         ##  ---调试开启 检测修补情况 cat /opt/QQ/resources/app/app_launcher/index.js  && \
+    # 下载LLOneBot
+    curl -L -o /tmp/LLOneBot.zip https://github.com/LLOneBot/LLOneBot/releases/download/$(curl -Ls "https://api.github.com/repos/LLOneBot/LLOneBot/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')/LLOneBot.zip && \
+    # 下载LLWebUiApi
+    curl -L -o /tmp/LLWebUiApi.zip https://github.com/LLOneBot/LLWebUiApi/releases/download/$(curl -Ls "https://api.github.com/repos/LLOneBot/LLWebUiApi/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')/LLWebUiApi.zip
 # 下载ChrOnoCat
 RUN cc_version=$(curl -Ls "https://api.github.com/repos/chrononeko/chronocat/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
     curl -L -o /tmp/chronocat-llqqnt-engine-chronocat-api.zip https://github.com/chrononeko/chronocat/releases/download/${cc_version}/chronocat-llqqnt-engine-chronocat-api-${cc_version}.zip && \
