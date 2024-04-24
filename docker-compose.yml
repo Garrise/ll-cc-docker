@@ -1,8 +1,8 @@
 services:
   llonebot-docker:
-    image: voidwind/cc-docker
+    image: garrise/ll-cc-docker
     tty: true
-    container_name: cc-docker
+    container_name: ll-cc-docker
     restart: always
     ports:
       - "5900:5900"       #vnc默认端口
